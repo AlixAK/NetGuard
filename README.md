@@ -7,13 +7,30 @@ A GTK3 GUI application for limiting per-process internet bandwidth on Linux. Use
 - **Per-process bandwidth control** — set independent upload and download limits
 - **Real-time monitoring** — see live download/upload speed per process, sorted by traffic
 - **Process discovery** — finds all child processes (e.g., browser tabs, game clients)
-- **Persistent limits** — saves and restores limits across restarts
+- **Clean exit** — all tc rules and cgroups are removed when the app closes
 - **Quick presets** — one-click 100 KB/s, 500 KB/s, 1 MB/s, 5 MB/s buttons
 - **KB/s units** — displays speeds in kilobytes, not kilobits
 
 ## Screenshot
 
-![NetGuard](assets/screenshot.png)
+<!-- TODO: Add screenshot -->
+
+```
+NetGuard - Bandwidth Limiter
++------------------------------------------+----------------------------------+
+| Running Processes                        | Set Bandwidth Limit              |
+| [Search process...]           [Refresh]  | Select a process from the list   |
+| PID  Name            CPU    Mem    Net   | Download limit (KB/s): [0]       |
+| 1234 firefox-bin     5.4%  513 MB  0.2KB | Upload limit (KB/s):   [0]       |
+| 3313 Discord        16.9%  579 MB  0.4KB | [100 KB/s][500 KB/s][1 MB/s]     |
+| 4829 unityhub-bin    2.3%  288 MB  519KB | [Apply Limit]  [Remove Limit]   |
+| ...                                      |                                  |
+|                                          | Active Limits                    |
+|                                          | No active limits                 |
++------------------------------------------+----------------------------------+
+| 540.0 KB/s  22.0 KB/s | Active limits: 0 | Interface: enp10s0              |
++-----------------------------------------------------------------------------+
+```
 
 ## Requirements
 
@@ -62,8 +79,8 @@ sudo make install
 
 This installs:
 - `netguard` to `/usr/local/bin/`
-- Icon to `/usr/share/icons/hicolor/`
-- Desktop entry to `/usr/share/applications/`
+- Icon to `/usr/local/share/icons/hicolor/`
+- Desktop entry to `/usr/local/share/applications/`
 
 ### Uninstall
 
@@ -118,7 +135,7 @@ python3 /usr/local/bin/netguard
 1. Select a process from the list
 2. Set a download and/or upload limit in KB/s
 3. Click **Apply Limit**
-4. Limits persist across app restarts
+4. All limits are automatically removed when you close the app
 
 The app uses:
 - **Upload limiting**: `tc` htb qdisc + cgroup `net_cls` classifier
@@ -127,7 +144,7 @@ The app uses:
 
 ## Configuration
 
-Active limits are saved to `~/.config/netguard/limits.json` and restored on startup.
+The app detects your default network interface automatically. Config is stored in `~/.config/netguard/limits.json` but is cleared on exit — all tc rules and cgroups are removed when the app closes.
 
 ## License
 
