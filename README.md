@@ -48,7 +48,7 @@ sudo pacman -S python-gobject gtk3 iproute2
 ### Quick install (recommended)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/NetGuard.git
+git clone https://github.com/AlixAK/NetGuard.git
 cd NetGuard
 chmod +x install.sh
 ./install.sh
