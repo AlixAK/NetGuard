@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=NetGuard
+Comment=Process Internet Bandwidth Limiter
+Exec=netguard
+Icon=netguard
+Terminal=false
+Type=Application
+Categories=System;
+StartupNotify=true
+StartupWMClass=netguard

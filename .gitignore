@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+*.AppImage
+*.AppDir/
+build/
+dist/
+*.egg-info/
+.eggs/
+*.spec
+assets/netguard-*.png
