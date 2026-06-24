@@ -71,6 +71,34 @@ This installs:
 sudo make uninstall
 ```
 
+### AppImage (portable, no install needed)
+
+Build a portable AppImage that runs anywhere without installing:
+
+```bash
+# Install appimagetool
+# Fedora/Bazzite:
+sudo rpm-ostree install appimagetool
+# Ubuntu/Debian:
+sudo apt install appimagetool
+# Arch:
+sudo pacman -S appimagetool
+# Or download from: https://github.com/AppImage/AppImageKit/releases
+
+# Build the AppImage
+chmod +x build-appimage.sh
+./build-appimage.sh
+```
+
+This creates `NetGuard-x86_64.AppImage`. Run it directly:
+
+```bash
+chmod +x NetGuard-x86_64.AppImage
+./NetGuard-x86_64.AppImage
+```
+
+The AppImage still requires Python 3, GTK 3, and `iproute-tc` to be installed on the system — it bundles only the app itself, not system libraries.
+
 ## Usage
 
 ### Run from terminal
