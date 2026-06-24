@@ -6,6 +6,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib, Gdk, Pango
 import subprocess
 import os
+import signal
 import json
 import time
 from pathlib import Path
@@ -796,7 +797,20 @@ class NetGuardWindow(Gtk.Window):
 def main():
     detect_interface()
     win = NetGuardWindow()
-    win.connect("destroy", Gtk.main_quit)
+
+    def on_destroy(widget):
+        win.backend.cleanup_all()
+        CONFIG_FILE.write_text("{}")
+        Gtk.main_quit()
+
+    def on_signal(signum, frame):
+        win.backend.cleanup_all()
+        CONFIG_FILE.write_text("{}")
+        Gtk.main_quit()
+
+    signal.signal(signal.SIGTERM, on_signal)
+    signal.signal(signal.SIGINT, on_signal)
+    win.connect("destroy", on_destroy)
     win.show_all()
     Gtk.main()
 
